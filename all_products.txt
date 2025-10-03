@@ -1,0 +1,22 @@
+product_id, product_name, price, price_type
+300;Banan;25;kilo
+301;Äpple;30;kilo
+302;Apelsin;28;kilo
+303;Potatis;12;kilo
+304;Tomat;35;kilo
+305;Gurka;18;styck
+306;Lök;20;kilo
+307;Mjölk;15;styck
+308;Yoghurt;12;styck
+309;Bröd;25;styck
+310;Ägg;35;styck
+311;Kaffe;55;styck
+312;Ris;45;kilo
+313;Kycklingfilé;89;kilo
+314;Nötfärs;129;kilo
+315;Lax;159;kilo
+316;Ost;85;kilo
+317;Smör;45;styck
+318;Socker;22;styck
+319;Mjöl;18;styck
+320;Pasta;25;styck
