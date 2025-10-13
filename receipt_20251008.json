@@ -1,0 +1,20 @@
+1: {
+    "header": {
+        "date": "08/10/2025 17:04:05"
+    },
+    "lines": [
+        {
+            "product_name": "Banan",
+            "quantity": 1,
+            "price": 25.0,
+            "line_total": 25.0
+        },
+        {
+            "product_name": "Banan",
+            "quantity": 1,
+            "price": 25.0,
+            "line_total": 25.0
+        }
+    ],
+    "total": 50.0
+},

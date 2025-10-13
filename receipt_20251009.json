@@ -1,0 +1,32 @@
+1000: {
+    "header": {
+        "date": "09/10/2025 13:49:31"
+    },
+    "lines": [
+        {
+            "product_name": "Banan",
+            "quantity": 1,
+            "price": 25.0,
+            "line_total": 25.0
+        },
+        {
+            "product_name": "Ägg",
+            "quantity": 3,
+            "price": 35.0,
+            "line_total": 105.0
+        },
+        {
+            "product_name": "Bröd",
+            "quantity": 3,
+            "price": 25.0,
+            "line_total": 75.0
+        },
+        {
+            "product_name": "Smör",
+            "quantity": 1,
+            "price": 45.0,
+            "line_total": 45.0
+        }
+    ],
+    "total": 250.0
+},
