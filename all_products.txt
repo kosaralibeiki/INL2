@@ -1,4 +1,4 @@
-product_id, product_name, price, price_type
+product_id, product_name, product_price, price_type
 300;Banan;25;kilo
 301;Äpple;30;kilo
 302;Apelsin;28;kilo
