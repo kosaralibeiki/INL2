@@ -1,22 +1,25 @@
-product_id, product_name, product_price, price_type
-300;Banan;25;kilo
-301;Äpple;30;kilo
-302;Apelsin;28;kilo
-303;Potatis;12;kilo
-304;Tomat;35;kilo
-305;Gurka;18;styck
-306;Lök;20;kilo
-307;Mjölk;15;styck
-308;Yoghurt;12;styck
-309;Bröd;25;styck
-310;Ägg;35;styck
-311;Kaffe;55;styck
-312;Ris;45;kilo
-313;Kycklingfilé;89;kilo
-314;Nötfärs;129;kilo
-315;Lax;159;kilo
-316;Ost;85;kilo
-317;Smör;45;styck
-318;Socker;22;styck
-319;Mjöl;18;styck
-320;Pasta;25;styck
+id;name;price;price_type
+300;Banan Sverige;22.0;kilo
+301;Äpple;30.0;kilo
+302;Apelsin;28.0;kilo
+303;Potatis;12.0;kilo
+304;Tomat;35.0;kilo
+305;Gurka;18.0;styck
+306;Lök;20.0;kilo
+307;Mjölk;15.0;styck
+308;Yoghurt;12.0;styck
+309;Bröd;25.0;styck
+310;Ägg;35.0;styck
+311;Kaffe;55.0;styck
+312;Ris;45.0;kilo
+313;Kycklingfilé;89.0;kilo
+314;Nötfärs;129.0;kilo
+315;Lax;159.0;kilo
+316;Ost;85.0;kilo
+317;Smör;45.0;styck
+318;Socker;22.0;styck
+319;Mjöl;18.0;styck
+320;Italiansk Pasta;25.0;styck
+321;Havre;30.0;styck
+322;Avokado;15.0;styck
+323;Körsbär;60.0;kilo

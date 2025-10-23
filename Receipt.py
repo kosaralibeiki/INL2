@@ -1,108 +1,24 @@
 import json
 from datetime import datetime
 
+from Campaigns import Campaign
+from Product import Products
+
 class Receipt:
 
-    def __init__(self, receipt_no, products):
+    def __init__(self, receipt_no:str, products:Products, campaign:Campaign):
         self.receipt_no = receipt_no
         self.products = products
+        self.campaigns: list["Campaign"] = []
 
         self.header_added = False
-        self.receipt = {
+        self.receipt:dict[str, dict | list | int] = {
             "header" : {"date" : self.generate_rcp_date()},
             "lines" : [],
             "total" : 0
         }
 
 
-# ---------- Header ----------
-    @staticmethod
-    def generate_rcp_date():
-        """Date and time in Swedish format."""
-        return datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-
-    @staticmethod
-    def str_rcp_date():
-        return f"KVITTO\t{Receipt.generate_rcp_date()}"
-
-    def add_rcp_header(self):
-        self.receipt["header"]["date"] = self.str_rcp_date()
-        self.header_added = True
-
-    def print_rcp_header(self):
-        return "INGEN DATUM" if not self.receipt["header"]["date"] else self.str_rcp_date()  # wondering why Kassa?
-
-
-# ---------- Receipt body ----------
-    @staticmethod
-    def validate_command(command):
-        if " " not in command:
-            print("🤔 Ange mellanslag mellan produktid och antal!")
-            return None
-
-        parts = command.strip().split()
-        if len(parts) != 2:
-            print("🤔 Du måste skriva två värden: produkt-id och antal.")
-            return None
-
-        product_id, quantity = parts
-        if not product_id.isdigit() or not quantity.isdigit():
-            print("🤔 Fel! Produkt-id och antal måste vara siffror.")
-            return None
-
-        qty = int(quantity)
-        if qty == 0:
-            print("🤔 Fel! Antal måste vara större än noll.")
-            return None
-
-        return product_id, qty
-
-    @staticmethod
-    def one_line_total(product, quantity):
-        return float(product.price) * int(quantity)
-
-    def add_total_line(self, product, quantity):
-        line_total = self.one_line_total(product, quantity)
-        self.receipt['total'] += line_total
-        return self.receipt["total"]
-
-    def print_rcp_total(self):
-        return f"Total: {self.receipt['total']:.2f}"
-
-    def add_rcp_line(self, product, quantity):
-        line = {
-            "product_name": product.name,
-            "quantity": quantity,
-            "price": float(product.price),
-            "line_total": self.one_line_total(product, quantity)
-        }
-        self.add_total_line(product, quantity)
-        self.receipt["lines"].append(line)
-
-
-    @staticmethod
-    def product_line_str(line):
-        return f"{line['product_name']}\t{line['quantity']} * {line['price']} = {line['line_total']:.2f}"
-
-    def print_rcp_body(self):
-        if not self.receipt["lines"]:
-            return "Inga varor!"
-
-
-        lines = [self.product_line_str(line) for line in self.receipt["lines"]]
-        return "\n".join(lines)
-
-
-    # ---------- Printing the receipt ----------
-    def print_rcp(self):
-        header = self.print_rcp_header()
-        body = self.print_rcp_body()
-        total = self.print_rcp_total()
-
-        receipt_text = f"{header}\n{body}\n{total}"
-        return receipt_text
-
-    # ---------- Main logic ----------
     def new_receipt(self):
 
         print("kommandon:")
@@ -115,50 +31,134 @@ class Receipt:
             print()
 
             if command.upper() == "PAY":
-                return self.print_rcp()
+                return self.attach_receipt_parts()
 
             valid_input = self.validate_command(command)
             if not valid_input:
                 continue
 
             product_id, quantity = valid_input
-            product = self.products.validate_product(product_id)
+            product = self.products.get_product(product_id)
 
             if not product:
                 continue
 
-            self.add_rcp_line(product, quantity) #lines added
+            self.create_receipt_line(product, quantity)
 
-            print(self.print_rcp())
+            print(self.attach_receipt_parts())
+
+    def attach_receipt_parts(self) -> str:
+        header = self.str_rcp_header()
+        body = self.attach_receipt_body()
+        total = self.str_receipt_total()
+
+        receipt_text = f"{header}\n{body}\n{total}"
+        return receipt_text
+
+
+
+
+    @staticmethod
+    def generate_rcp_date() -> str:
+        """Date and time in Swedish format."""
+        return datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+
+    @staticmethod
+    def str_rcp_date() -> str:
+        return f"KVITTO\t{Receipt.generate_rcp_date()}"
+
+    def attach_rcp_header(self) -> None:
+        self.receipt["header"]["date"] = self.str_rcp_date()
+        self.header_added = True
+
+    def str_rcp_header(self)-> str:
+        return "INGEN DATUM" if not self.receipt["header"]["date"] else self.str_rcp_date()
+
+
+
+
+    @staticmethod
+    def validate_command(command:str) -> tuple[str, int] | None:
+        """To make sure user follow the rules related to command"""
+
+        if " " not in command:
+            print("❌ Ange mellanslag mellan produktid och antal!")
+            return None
+
+        parts = command.strip().split()
+        if len(parts) != 2:
+            print("❌ Du måste skriva två värden: produkt-id och antal.")
+            return None
+
+        product_id, quantity = parts
+        if not product_id.isdigit() or not quantity.isdigit():
+            print("❌ Fel! Produkt-id och antal måste vara siffror.")
+            return None
+
+        qty = int(quantity)
+        if qty == 0:
+            print("❌ Fel! Antal måste vara större än noll.")
+            return None
+
+        return product_id, qty
+
+    @staticmethod
+    def get_line_total(product, quantity) -> float:
+        """Calculate the total price for a single product line"""
+        return product.price * int(quantity)
+
+    def update_receipt_total(self, product, quantity)-> float:
+        line_total = self.get_line_total(product, quantity)
+        self.receipt['total'] += line_total
+        return self.receipt["total"]
+
+    def str_receipt_total(self)-> str:
+        return f"Total: {self.receipt['total']:.2f}"
+
+
+
+    def create_receipt_line(self, product, quantity):
+        line = {
+            "product_name": product.name,
+            "quantity": quantity,
+            "price": float(product.price),
+            "line_total": self.get_line_total(product, quantity)
+        }
+        self.update_receipt_total(product, quantity)
+        self.receipt["lines"].append(line)
+
+    @staticmethod
+    def product_line_str(line)-> str:
+        return f"{line['product_name']}\t{line['quantity']} * {line['price']} = {line['line_total']:.2f}"
+
+    def attach_receipt_body(self) -> str:
+        if not self.receipt["lines"]:
+            return "Inga varor!"
+
+        lines = [self.product_line_str(line) for line in self.receipt["lines"]]
+        return "\n".join(lines)
+
+
+
 
 
 
 # ---------- Receipts manager ----------
 class ManageReceipts:
     def __init__(self):
-        self.receipts = {}
-        self.receipt_no = 1000
+        self.receipts: dict[int, dict] = {}
+        self.receipt_no: int = 1000
 
     def generate_receipt_no(self):
         self.receipt_no += 1
         return self.receipt_no
 
     @staticmethod
-    def generate_file_name():
+    def generate_file_name()-> str:
         today = datetime.now().strftime("%Y%m%d")
         return f"receipt_{today}.json"
 
-    # def load_day_receipts(self):
-    #     try:
-    #         with open(Receipts.generate_file_name(), "r") as f:
-    #             data = json.load(f)
-    #             for self.receipt_no, receipt in data.items():
-    #                 self.receipts[self.receipt_no] = receipt
-    #
-    #     except FileNotFoundError:
-    #         Receipts.generate_file_name()
-
-    def save_receipt(self, receipt):
+    def save_daily_receipt(self, receipt):
         file_name = self.generate_file_name()
 
         self.receipts[receipt.receipt_no] = receipt
@@ -170,8 +170,6 @@ class ManageReceipts:
 
 
 
-            # def save_receipts(self, receipt_no):
-    #     with open("receipts.txt" , "w") as f:
 
 
 

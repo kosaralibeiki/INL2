@@ -28,7 +28,7 @@ def set_up():
 
             receipt = Receipt(receipt_no, products=products)
             print(receipt.new_receipt())
-            receipts_manager.save_receipt(receipt)
+            receipts_manager.save_daily_receipt(receipt)
 
         # Admin
         elif choice == "2":
@@ -45,7 +45,7 @@ def set_up():
                 #Ändra på befintliga produkter
                 if choice_2 == "1":
                     product = products.find_product_by_id()
-                    print(products.str_product())
+                    print(product)
                     print("1. Namn")
                     print("2. Pris")
                     print("0. Avbryt")
@@ -74,6 +74,7 @@ def set_up():
                 # Lägg till en produkt
                 elif choice_2 == "2":
                     products.add_new_product()
+                    products.save_products()
 
                 # Lägg till en kampanjpris
                 elif choice_2 == "3":
