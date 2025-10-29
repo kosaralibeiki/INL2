@@ -1,7 +1,7 @@
 id;name;price;price_type
-300;Banan Sverige;22.0;kilo
-301;Äpple;30.0;kilo
-302;Apelsin;28.0;kilo
+300;Banan;10.0;kilo
+301;Apple;30.0;kilo
+302;Apelsin;27.0;kilo
 303;Potatis;12.0;kilo
 304;Tomat;35.0;kilo
 305;Gurka;18.0;styck
@@ -23,3 +23,5 @@ id;name;price;price_type
 321;Havre;30.0;styck
 322;Avokado;15.0;styck
 323;Körsbär;60.0;kilo
+324;Honung;69.99;styck
+325;Blåbär;59.99;kilo

@@ -1,14 +1,17 @@
-from Product import Products, Product
-from Receipt import Receipt, ManageReceipts
-from Campaigns import ManageCampaign
+from Product_module import Products, Product
+from Receipt_module import Receipt, ManageReceipts
+from Campaign_module import ManageCampaign
 
 
 def set_up():
     products = Products()
     products.load_products()
+
     camps = ManageCampaign()
     camps.load_camps()
 
+    for camp in camps.campaigns.values():
+        camps.attach_campaign_to_products(camp, products)
     while True:
         print()
         print("KASSA")
@@ -26,7 +29,7 @@ def set_up():
             receipts_manager = ManageReceipts()
             receipt_no = receipts_manager.generate_receipt_no()
 
-            receipt = Receipt(receipt_no, products=products)
+            receipt = Receipt(receipt_no, products=products, campaigns=camps)
             print(receipt.new_receipt())
             receipts_manager.save_daily_receipt(receipt)
 
@@ -46,11 +49,13 @@ def set_up():
                 if choice_2 == "1":
                     product = products.find_product_by_id()
                     print(product)
+                    print()
                     print("1. Namn")
                     print("2. Pris")
                     print("0. Avbryt")
 
                     choice_3 = input("Vad vill du ändra?")
+                    print()
 
 
                     # Ändra på produktnamn

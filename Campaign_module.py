@@ -1,4 +1,4 @@
-from Product import Product, Products
+from Product_module import Product, Products
 from datetime import datetime
 import json
 
@@ -13,7 +13,7 @@ class Campaign:
 
 
     def __str__(self):
-        products_str ="\n".join([f"- produkt-id: {p['product_id']}, produktpris: {p['price']}kr"
+        products_str ="\n".join([f" - produkt-id: {p['product_id']}, produktpris: {p['price']}kr"
                                  for p in self.products]
                                 )
         return (
@@ -82,12 +82,12 @@ class ManageCampaign:
                 if not product_:
                     continue
 
-                product_price = product_.price #find it's price
+
                 print(f"Produktnamn är {product_.name}")
-                print(f"Nuvarande pris: {product_price:.2f} kr per {product_.price_type}")
+                print(f"Nuvarande pris: {product_.price:.2f} kr per {product_.price_type}")
                 camp_price = products.get_product_price("Nytt pris: ")
 
-                if camp_price >= product_price:
+                if camp_price >= product_.price:
                     print("⚠️ Kampanjpriset måste vara lägre än ordinarie pris.")
                     continue
 
@@ -110,18 +110,22 @@ class ManageCampaign:
 
             self.campaigns[camp_id] = new_campaign
 
-            for item in new_campaign.products:
-                product_obj = products.get_product(item["id"])
-                if product_obj:
-                    product_obj.campaigns.append(new_campaign)
-
 
             print(f"\n✅ Kampanjen '{camp_name}' skapades med {len(campaign_products)} produkter!\n")
             break
 
+
+    @staticmethod
+    def attach_campaign_to_products(campaign ,products : Products):
+        """Links a campaign to the actual Product instances."""
+        for item in campaign.products:
+            product_obj = products.get_product(item["id"])
+            if product_obj:
+                product_obj.campaigns.append(campaign)
+
     def see_all_campaign(self):
         if not self.campaigns:
-            print("⚠️ Inga kampanjer finns ännu!")
+            print("🤔 Inga kampanjer finns ännu!")
             return
 
         for camp_id, camp in self.campaigns.items():

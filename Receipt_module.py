@@ -1,15 +1,15 @@
 import json
 from datetime import datetime
 
-from Campaigns import Campaign
-from Product import Products
+from Campaign_module import Campaign, ManageCampaign
+from Product_module import Products
 
 class Receipt:
 
-    def __init__(self, receipt_no:str, products:Products, campaign:Campaign):
+    def __init__(self, receipt_no:str, products:Products, campaigns:ManageCampaign):
         self.receipt_no = receipt_no
         self.products = products
-        self.campaigns: list["Campaign"] = []
+        self.campaigns = campaigns
 
         self.header_added = False
         self.receipt:dict[str, dict | list | int] = {
@@ -30,7 +30,7 @@ class Receipt:
             command = input("Kommando: ").strip()
             print()
 
-            if command.upper() == "PAY":
+            if command == "PAY":
                 return self.attach_receipt_parts()
 
             valid_input = self.validate_command(command)
@@ -105,7 +105,7 @@ class Receipt:
     @staticmethod
     def get_line_total(product, quantity) -> float:
         """Calculate the total price for a single product line"""
-        return product.price * int(quantity)
+        return product.current_price * int(quantity)
 
     def update_receipt_total(self, product, quantity)-> float:
         line_total = self.get_line_total(product, quantity)
@@ -121,7 +121,7 @@ class Receipt:
         line = {
             "product_name": product.name,
             "quantity": quantity,
-            "price": float(product.price),
+            "price": float(product.current_price),
             "line_total": self.get_line_total(product, quantity)
         }
         self.update_receipt_total(product, quantity)

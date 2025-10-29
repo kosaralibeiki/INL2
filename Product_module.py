@@ -11,21 +11,22 @@ class Product:
 
 
     def __str__(self)-> str:
-        return f"Produkt:\nID: {self.id_}\nNamn: {self.name}\nPris per {self.price_type} : {self.price}"
+        return f"ID: {self.id_}\nNamn: {self.name}\nPris per {self.price_type} : {self.price:.2f}"
 
     @property
-    def current_price(self)-> float:
-        now = datetime.now()
-        today = now.date()
+    def current_price(self) -> float:
+        today = datetime.now().date()
+        active_prices = []
 
         for campaign in self.campaigns:
-            active_prices = []
-            if campaign.start_date <= today <= campaign.end_date:
+            if campaign.start_date.date() <= today <= campaign.end_date.date():
                 for item in campaign.products:
-                    if item.id == self.id_:
+                    if item["id"] == self.id_:
                         active_prices.append(item["price"])
 
+
         return min(active_prices) if active_prices else self.price
+
 
 class Products:
     def __init__(self) -> None:
@@ -68,7 +69,7 @@ class Products:
     def change_product_name(self, product_) -> None:
         new_name = self.get_product_name()
         product_.name = new_name
-        print(f"✅ Produkten med produkt-id: {product_.id_} ändrades namn till {new_name}")
+        print(f"✅ Produkten med produkt-id {product_.id_} ändrades namn till {new_name}")
         self.save_products()
 
     def change_product_price(self, product_) -> None:
@@ -106,7 +107,7 @@ class Products:
             print("❌ Produkt-ID finns inte! Försök igen.")
             return False
         else:
-            print("✅ En produkt hittades:")
+            # print("✅ En produkt hittades:")
             return product_
 
 
