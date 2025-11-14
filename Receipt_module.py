@@ -5,6 +5,7 @@ from Campaign_module import Campaign, ManageCampaign
 from Product_module import Products
 
 
+
 class Receipt:
 
     def __init__(self, receipt_no:str, products:Products, campaigns:ManageCampaign):

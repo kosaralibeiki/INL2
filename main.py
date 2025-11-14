@@ -3,6 +3,7 @@ from Receipt_module import Receipt, ManageReceipts
 from Campaign_module import ManageCampaign
 
 
+
 def set_up():
     products = Products()
     products.load_products()

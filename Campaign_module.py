@@ -84,6 +84,7 @@ class ManageCampaign:
                     continue
 
 
+
                 print(f"Produktnamn är {product_.name}")
                 print(f"Nuvarande pris: {product_.price:.2f} kr per {product_.price_type}")
                 camp_price = products.get_product_price("Nytt pris: ")

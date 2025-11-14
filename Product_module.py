@@ -29,6 +29,7 @@ class Product:
         return min(active_prices) if active_prices else self.price
 
 
+
 class Products:
     def __init__(self) -> None:
         self.products:dict[str,Product] = {}

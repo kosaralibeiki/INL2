@@ -1,0 +1,28 @@
+1001: {
+    "header": {
+        "date": "14/11/2025 08:14:31"
+    },
+    "lines": [
+        {
+            "product_name": "Banan",
+            "quantity": 1,
+            "price": 10.0,
+            "line_total": 10.0
+        }
+    ],
+    "total": 10.0
+},
+1001: {
+    "header": {
+        "date": "14/11/2025 08:28:33"
+    },
+    "lines": [
+        {
+            "product_name": "Banan",
+            "quantity": 1,
+            "price": 10.0,
+            "line_total": 10.0
+        }
+    ],
+    "total": 10.0
+},
