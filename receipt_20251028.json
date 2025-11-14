@@ -1,0 +1,69 @@
+1001: {
+    "header": {
+        "date": "28/10/2025 12:35:22"
+    },
+    "lines": [
+        {
+            "product_name": "Banan",
+            "quantity": 1,
+            "price": 22.0,
+            "line_total": 22.0
+        }
+    ],
+    "total": 22.0
+},
+1001: {
+    "header": {
+        "date": "28/10/2025 12:53:42"
+    },
+    "lines": [
+        {
+            "product_name": "Äpple",
+            "quantity": 4,
+            "price": 30.0,
+            "line_total": 120.0
+        },
+        {
+            "product_name": "Gurka",
+            "quantity": 5,
+            "price": 18.0,
+            "line_total": 90.0
+        }
+    ],
+    "total": 210.0
+},
+1001: {
+    "header": {
+        "date": "28/10/2025 12:55:19"
+    },
+    "lines": [],
+    "total": 0
+},
+1001: {
+    "header": {
+        "date": "28/10/2025 13:02:42"
+    },
+    "lines": [
+        {
+            "product_name": "Banan",
+            "quantity": 4,
+            "price": 14.9,
+            "line_total": 59.6
+        }
+    ],
+    "total": 59.6
+},
+1001: {
+    "header": {
+        "date": "28/10/2025 13:03:35"
+    },
+    "lines": [
+        {
+            "product_name": "Banan",
+            "quantity": 6,
+            "price": 14.9,
+            "line_total": 89.4
+        }
+    ],
+    "total": 89.4
+},
