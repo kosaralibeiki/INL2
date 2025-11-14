@@ -12,6 +12,7 @@ class Campaign:
 
 
 
+
     def __str__(self):
         products_str ="\n".join([f" - produkt-id: {p['product_id']}, produktpris: {p['price']}kr"
                                  for p in self.products]

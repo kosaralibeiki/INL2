@@ -42,6 +42,7 @@ def set_up():
                 print("4. Ta bort en kampanjpris")
                 print("0. Tillbaka till menyn")
 
+
                 choice_2 = input("Vad skulle du ändra på? ").strip()
 
 

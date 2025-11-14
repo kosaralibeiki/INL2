@@ -10,6 +10,7 @@ class Product:
         self.campaigns:list["Campaign"] = []
 
 
+
     def __str__(self)-> str:
         return f"ID: {self.id_}\nNamn: {self.name}\nPris per {self.price_type} : {self.price:.2f}"
 
